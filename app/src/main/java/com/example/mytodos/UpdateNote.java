@@ -82,8 +82,9 @@ public class UpdateNote extends AppCompatActivity{
                                 progressDialog.dismiss();
                                 if (task.isSuccessful()){
                                     Toast.makeText(getApplicationContext(),"Updated Successfully",Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                                    finish();
+                                    Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
                                 }else {
                                     Toast.makeText(getApplicationContext(),"Update Is Unsuccessful",Toast.LENGTH_SHORT).show();
                                 }
