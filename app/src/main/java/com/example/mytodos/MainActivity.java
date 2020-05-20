@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.mytodos.Adapter.NoteAdapter;
 import com.example.mytodos.ModelClass.UserNotes;
@@ -67,7 +68,10 @@ public class MainActivity extends AppCompatActivity {
                 if (firebaseAuth.getCurrentUser() != null){
                     firebaseAuth.signOut();
                 }
-                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                Toast.makeText(MainActivity.this,"Logged Out",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
     }
@@ -104,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        this.finish();
+        finishAffinity();
+        finish();
     }
 }

@@ -62,8 +62,9 @@ public class DataDelete extends AppCompatActivity {
                         progressDialog.dismiss();
                         if (task.isSuccessful()){
                             Toast.makeText(getApplicationContext(),"Deleted Successfully",Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                            finish();
+                            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
                         }else {
                             Toast.makeText(getApplicationContext(),"Delete Is Unsuccessful",Toast.LENGTH_SHORT).show();
                         }
