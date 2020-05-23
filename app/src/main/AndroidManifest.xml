@@ -13,8 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".DataDelete"></activity>
-        <activity android:name=".UpdateNote" />
-        <activity android:name=".AddNoteActivity" />
+        <activity android:name=".UpdateNote"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".AddNoteActivity"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".ForgotPassword" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".LoginActivity" />

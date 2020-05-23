@@ -20,6 +20,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
+import net.yslibrary.android.keyboardvisibilityevent.Unregistrar;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -61,6 +65,17 @@ public class UpdateNote extends AppCompatActivity{
             updatedesc.setText(olddesc);
         }
 
+        KeyboardVisibilityEvent.setEventListener(UpdateNote.this, new KeyboardVisibilityEventListener() {
+            @Override
+            public void onVisibilityChanged(boolean b) {
+                if (b){
+                    update.setVisibility(View.INVISIBLE);
+                }else {
+                    update.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,5 +114,8 @@ public class UpdateNote extends AppCompatActivity{
                 }
             }
         });
+
+
     }
+
 }

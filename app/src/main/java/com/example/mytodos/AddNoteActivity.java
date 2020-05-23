@@ -19,6 +19,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -46,6 +49,17 @@ public class AddNoteActivity extends AppCompatActivity {
         databaseNotes = FirebaseDatabase.getInstance().getReference("UserNotes").child(uid);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Saving...");
+
+        KeyboardVisibilityEvent.setEventListener(AddNoteActivity.this, new KeyboardVisibilityEventListener() {
+            @Override
+            public void onVisibilityChanged(boolean b) {
+                if (b){
+                    save.setVisibility(View.INVISIBLE);
+                }else {
+                    save.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
 
         save.setOnClickListener(new View.OnClickListener() {
