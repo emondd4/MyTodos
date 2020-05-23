@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -14,9 +15,9 @@
         android:theme="@style/AppTheme">
         <activity android:name=".DataDelete"></activity>
         <activity android:name=".UpdateNote"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".AddNoteActivity"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".ForgotPassword" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".LoginActivity" />

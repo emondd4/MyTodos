@@ -3,8 +3,11 @@ package com.example.mytodos;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +17,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mytodos.HelperClass.UpdateHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -23,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements UpdateHelper.OnUpdateCheckListener {
 
     @BindView(R.id.login_email_text)
     EditText loginText;
@@ -47,6 +51,10 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
+
+        UpdateHelper.with(this)
+                .onUpdateCheck(this)
+                .check();
     }
 
     @OnClick({R.id.loginBtn, R.id.text_signup, R.id.forgot_text})
@@ -101,6 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
 
     @Override
@@ -110,5 +119,28 @@ public class LoginActivity extends AppCompatActivity {
         if(firebaseAuth.getCurrentUser() != null){
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
         }
+    }
+
+    @Override
+    public void onUpdateCheckListener(String urlApp) {
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setTitle("New Version Availabe")
+                .setMessage("Please Update to new Version to continue use")
+                .setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent viewIntent =
+                                new Intent("android.intent.action.VIEW",
+                                        Uri.parse(urlApp));
+                        startActivity(viewIntent);
+                    }
+                }).setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).create();
+
+        alertDialog.show();
     }
 }
